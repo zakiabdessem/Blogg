@@ -17,7 +17,16 @@ try {
 }
 
 // allow cross-origin requests 
-app.use(cors())
+app.use(
+    cors({
+    
+      credentials: true,
+      origin: [
+        "http://localhost:3001", 
+      ], 
+      methods: ["GET", "POST"],
+    })
+  );
 //
 app.use(cookieParser())
 //body-parser

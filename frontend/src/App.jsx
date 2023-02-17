@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import Cookies from 'universal-cookie';
+ const cookies = new Cookies()
 
 export default function App() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error,setError] = useState("")
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,17 +16,21 @@ export default function App() {
         { email, password },
         {
           headers: {
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${cookies.get('jwt')}`,
             "Access-Control-Allow-Origin": "*",
-           // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
           },
+          withCredentials: true
         }
       );
-      console.log(response.data)
-     /* const cookies = response.headers['set-cookie'];
-      const jwtCookie = cookies.find(cookie => cookie.startsWith('jwt='));
-      const jwtToken = jwtCookie.split(';')[0].split('=')[1];
-      console.log(jwtToken);*/
+/*
+      // Retrieve the cookie value
+      const jwtToken = response.headers["set-cookie"][0];
+
+      // Save the cookie in the browser
+      Cookies.set("jwt", jwtToken, { path: "/" });
+*/
+      console.log(response);
     } catch (e) {
       if (e.response) {
         setError(e.response.data.error);
@@ -35,18 +39,6 @@ export default function App() {
       }
     }
   };
-  /*
-  git rm --cached frontend
-
-git add frontend
-
-git commit -m "making frontend available"
-
-git push
-
-  */
-  
-  
 
   return (
     <>
