@@ -42,7 +42,7 @@ module.exports.post_signUp = async (req, res) => {
         const token = createJwtToken(User._id)
         
         //res.json(User) for testing purposes
-        res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000 })
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
         res.send('cookie sent')
     } catch (e) {
 
