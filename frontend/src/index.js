@@ -12,9 +12,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/auth">
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+          <Route path="auth">
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
           <Route index element={<Home />} />
           <Route path="contact" element={<Contact />} />
@@ -27,4 +27,6 @@ export default function App() {
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
-root.render(<App />);
+root.render(
+<App />
+);
