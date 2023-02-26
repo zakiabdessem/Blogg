@@ -3,7 +3,7 @@ import axios from "axios";
 
 const cookies = new Cookies()
 
-export default function App() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
