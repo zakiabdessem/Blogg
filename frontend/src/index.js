@@ -1,32 +1,28 @@
+import ReactDOM from "react-dom/client";
+import { ProtectedRoute, BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/Layout";
 import Home from "./pages/Home";
-import Nopage from "./pages/Nopage";
+import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export default function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="*" element={<Nopage />} />
-      </Route>
-      <Route path="/auth" element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
+      <Routes>
         <Route path="/register" element={<Register />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
-  
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<App />
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,22 +15,21 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:3000/auth/sign-up',
+        "http://localhost:3000/auth/login",
         { email, password },
         {
           headers: {
-            Authorization: `Bearer ${cookies.get('jwt')}`,
+            Authorization: `Bearer ${cookies.get("jwt")}`,
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
           },
-          withCredentials: true
+          withCredentials: true,
         }
       );
-    // the cookie is Saved Automaticly by using /withCredentials: true/
-      console.log(response.data)
-    // redirect to home page
-
-
+      // the cookie is Saved Automaticly by using /withCredentials: true/
+      console.log(response.data);
+      // redirect to home page
+      navigate("/home")
     } catch (e) {
       if (e.response) {
         setError(e.response.data.error);

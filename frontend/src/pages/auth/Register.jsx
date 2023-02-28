@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies()
 
-export default function App() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

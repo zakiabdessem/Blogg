@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const createJwtToken = (payload) => {
-  return jwt.sign({ id }, process.env.SECRET, {
+  return jwt.sign(payload, process.env.SECRET, {
     expiresIn: 300,
   });
 };
@@ -51,6 +51,7 @@ module.exports.post_signUp = async (req, res) => {
     res.cookie("jwt", token, { httpOnly: true, maxAge: 300 * 1000 });
     res.status(200).json({ user: User._id });
   } catch (e) {
+    console.log(e);
     res.status(404).json({ error: "an error has occurred check API" });
   }
 };
@@ -61,7 +62,7 @@ module.exports.post_login = async (req, res) => {
   /* validate email */
   const { error: emailError } = validation.emailValidation({ email: email });
   if (emailError) return res.status(400).json({ error: emailError.message });
-  const User = await user.findOne({ username }).select("+password");
+  const User = await user.findOne({ email }).select("+password");
 
   // return if there was no user with this username found in the database
   if (!User)
@@ -82,4 +83,18 @@ module.exports.post_login = async (req, res) => {
 
   //res.json(User) for testing purposes
   res.cookie("jwt", token, { httpOnly: true, maxAge: 300 * 1000 });
+  res.status(200).json({ user: User._id, created: true });
+};
+module.exports.verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json(decoded);
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 };
