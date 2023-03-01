@@ -17,30 +17,20 @@ export default function Login() {
       const response = await axios.post(
         "http://localhost:3000/auth/login",
         { email, password },
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.get("jwt")}`,
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-          },
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       // the cookie is Saved Automaticly by using /withCredentials: true/
-      console.log(response.data);
       // redirect to home page
-      navigate("/home")
+      navigate("/home");
     } catch (e) {
-      if (e.response) {
-        setError(e.response.data.error);
-      } else {
-        console.log(e); // send it to admin panel
-      }
+      if (e.response) setError(e.response.data.error);
+      else console.log(e);
     }
   };
 
   return (
     <>
+    <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <h3>{error}</h3>
         <div>
@@ -63,7 +53,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Login</button>
       </form>
     </>
   );

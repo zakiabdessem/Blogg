@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -13,33 +13,22 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:3000/auth/sign-up',
+        "http://localhost:3000/auth/sign-up",
         { email, password },
         {
-          headers: {
-            Authorization: `Bearer ${cookies.get('jwt')}`,
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-          },
-          withCredentials: true
+          withCredentials: true,
         }
       );
-    // the cookie is Saved Automaticly by using /withCredentials: true/
-      console.log(response.data)
-    // redirect to home page
-
-
+      // the cookie is Saved Automaticly by using /withCredentials: true/
     } catch (e) {
-      if (e.response) {
-        setError(e.response.data.error);
-      } else {
-        console.log(e); // send it to admin panel
-      }
+      if (e.response) setError(e.response.data.error);
+      else console.log(e);
     }
   };
 
   return (
     <>
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <h3>{error}</h3>
         <div>

@@ -48,7 +48,7 @@ module.exports.post_signUp = async (req, res) => {
     const token = createJwtToken(payload);
 
     //res.json(User) for testing purposes
-    res.cookie("jwt", token, { httpOnly: true, maxAge: 300 * 1000 });
+    res.cookie("jwt", token, { httpOnly: false, maxAge: 300 * 1000 });
     res.status(200).json({ user: User._id });
   } catch (e) {
     console.log(e);
@@ -82,7 +82,7 @@ module.exports.post_login = async (req, res) => {
   const token = createJwtToken(payload);
 
   //res.json(User) for testing purposes
-  res.cookie("jwt", token, { httpOnly: true, maxAge: 300 * 1000 });
+  res.cookie("jwt", token, { httpOnly: false, maxAge: 300 * 1000 });
   res.status(200).json({ user: User._id, created: true });
 };
 module.exports.verifyToken = (req, res, next) => {

@@ -9,11 +9,11 @@
     "js-cookie": "^3.0.1",
     "package.json": "^2.0.1",
     "react": "^18.1.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.8.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
-    "universal-cookie": "^4.0.4",
     "util": "^0.12.5"
   },
   "scripts": {
