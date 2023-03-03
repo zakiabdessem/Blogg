@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 
 const cookies = new Cookies();
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(location.state?.error || "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ export default function Login() {
       );
       // the cookie is Saved Automaticly by using /withCredentials: true/
       // redirect to home page
-      navigate("/home");
+      navigate("/");
     } catch (e) {
       if (e.response) setError(e.response.data.error);
       else console.log(e);

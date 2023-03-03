@@ -78,12 +78,16 @@ module.exports.post_login = async (req, res) => {
     id: User._id,
     email: User.email,
   };
-
+try{
   const token = createJwtToken(payload);
 
   //res.json(User) for testing purposes
   res.cookie("jwt", token, { httpOnly: false, maxAge: 300 * 1000 });
-  res.status(200).json({ user: User._id, created: true });
+  res.status(200).json({ user: User._id, auth: true });
+}catch(e){
+console.log(e)
+}
+ 
 };
 module.exports.verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -91,7 +95,7 @@ module.exports.verifyToken = (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.SECRET);
     res.status(200).json(decoded);
     next();
   } catch (err) {
