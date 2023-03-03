@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const createJwtToken = (payload) => {
   return jwt.sign(payload, process.env.SECRET, {
-    expiresIn: 300,
+    expiresIn: "1d",
   });
 };
 
@@ -48,7 +48,7 @@ module.exports.post_signUp = async (req, res) => {
     const token = createJwtToken(payload);
 
     //res.json(User) for testing purposes
-    res.cookie("jwt", token, { httpOnly: false, maxAge: 300 * 1000 });
+    res.cookie("jwt", token, { httpOnly: false, maxAge: 86400000 });
     res.status(200).json({ user: User._id });
   } catch (e) {
     console.log(e);
@@ -78,16 +78,15 @@ module.exports.post_login = async (req, res) => {
     id: User._id,
     email: User.email,
   };
-try{
-  const token = createJwtToken(payload);
+  try {
+    const token = createJwtToken(payload);
 
-  //res.json(User) for testing purposes
-  res.cookie("jwt", token, { httpOnly: false, maxAge: 300 * 1000 });
-  res.status(200).json({ user: User._id, auth: true });
-}catch(e){
-console.log(e)
-}
- 
+    //res.json(User) for testing purposes
+    res.cookie("jwt", token, { httpOnly: false, maxAge: 86400000 });
+    res.status(200).json({ user: User._id, auth: true });
+  } catch (e) {
+    console.log(e);
+  }
 };
 module.exports.verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];

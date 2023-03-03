@@ -6,7 +6,7 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { CookiesProvider } from "react-cookie";
-
+import "./index.css"
 export default function App() {
   return (
     <BrowserRouter>
