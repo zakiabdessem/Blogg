@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { useNavigate , useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const cookies = new Cookies();
 
@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <>
-    <h1>Login</h1>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <h3>{error}</h3>
         <div>

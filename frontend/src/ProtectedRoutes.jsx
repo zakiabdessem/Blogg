@@ -13,7 +13,7 @@ const ProtectedRoutes = () => {
     return (
       <Navigate
         to="/login"
-        state={{ error: "Please login to access that page" }}
+        state={{ error: "Please login or register to access that page" }}
       />
     );
   }
@@ -31,11 +31,10 @@ const ProtectedRoutes = () => {
 
         if (response.status === 200) {
           setIsAuthenticated(true);
-        } else {
-          console.log("response is not 200:", response);
         }
+
       } catch (e) {
-        console.log("error:", e);
+        return;
       }
       setIsLoading(false);
     };
