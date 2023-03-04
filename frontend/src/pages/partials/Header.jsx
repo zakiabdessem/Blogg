@@ -16,6 +16,12 @@ export default function Header() {
       <link href="/assets/css/templatemo-xtra-blog.css" rel="stylesheet" />
       <script src="/assets/js/templatemo-script.js" />
       <script src="/assets/js/jquery.min.js" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap"
+        rel="stylesheet"
+      />
     </Helmet>
   );
 }

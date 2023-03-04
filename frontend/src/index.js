@@ -6,7 +6,8 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { CookiesProvider } from "react-cookie";
-import "./index.css"
+import "./index.css";
+import Footer from "./pages/partials/Footer";
 export default function App() {
   return (
     <BrowserRouter>
@@ -14,7 +15,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -25,5 +26,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <CookiesProvider>
     <App />
+    <Footer/>
   </CookiesProvider>
+
+ 
 );

@@ -6,13 +6,12 @@ import Footer from "./Footer";
 export default function Layout({ children }) {
   return (
     <>
-      <Header />
-      <Navbar />
-      <div className="container mx-auto">
-        <main className="tm-main">
-          {children}
-        </main>
-        <Footer />
+      <div className="min-h-screen">
+        <Header />
+        <Navbar />
+        <div className="container mx-auto">
+          <main className="tm-main mt-20">{children}</main>
+        </div>
       </div>
     </>
   );
