@@ -10,7 +10,7 @@ export default function Layout({ children }) {
         <Header />
         <Navbar />
         <div className="container mx-auto">
-          <main className="tm-main mt-20">{children}</main>
+          <main className="tm-main mt-10">{children}</main>
         </div>
       </div>
     </>

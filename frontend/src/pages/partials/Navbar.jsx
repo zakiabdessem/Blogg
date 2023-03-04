@@ -5,7 +5,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 export default function Navbar() {
   return (
     <>
-     <div className="fixed top-0 right-0 w-full md:w-auto md:mt-0 m-2">
+      {/*<div className="fixed top-0 right-0 w-full md:w-auto md:mt-0 m-2">
         <form className="flex items-center mt-16">
           <input
             className="flex-grow bg-gray-200 border-transparent focus:outline-none focus:bg-white focus:border-gray-300 px-4 mr-2 mb-2 md:mb-0 rounded-lg text-gray-700"
@@ -21,7 +21,7 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </form>
-      </div>
+      </div>*/}
 
       <header className="fixed top-0 w-full bg-gray-900 text-white py-4">
         <div className="container mx-auto flex justify-between px-4">
@@ -43,19 +43,28 @@ export default function Navbar() {
           <nav className="flex">
             <ul className="flex items-center ml-20">
               <li className="mr-6">
-                <a href="index.html" className="flex items-center text-white hover:text-gray-400">
+                <a
+                  href="index.html"
+                  className="flex items-center text-white hover:text-gray-400"
+                >
                   <i className="fas fa-home"></i>
                   <span className="ml-2">Home</span>
                 </a>
               </li>
               <li className="mr-6">
-                <a href="post.html" className="flex items-center text-white hover:text-gray-400">
+                <a
+                  href="post.html"
+                  className="flex items-center text-white hover:text-gray-400"
+                >
                   <i className="fas fa-pen"></i>
                   <span className="ml-2">Single Post</span>
                 </a>
               </li>
               <li className="mr-6">
-                <a href="about.html" className="flex items-center text-white hover:text-gray-400">
+                <a
+                  href="about.html"
+                  className="flex items-center text-white hover:text-gray-400"
+                >
                   <i className="fas fa-users"></i>
                   <span className="ml-2">About</span>
                 </a>
@@ -82,7 +91,6 @@ export default function Navbar() {
           </div>
         </div>
       </header>
-
     </>
   );
 }
