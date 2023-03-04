@@ -44,7 +44,7 @@ export default function Navbar() {
             <ul className="flex items-center ml-20">
               <li className="mr-6">
                 <a
-                  href="index.html"
+                  href="/"
                   className="flex items-center text-white hover:text-gray-400"
                 >
                   <i className="fas fa-home"></i>
@@ -53,7 +53,7 @@ export default function Navbar() {
               </li>
               <li className="mr-6">
                 <a
-                  href="post.html"
+                  href="/posts"
                   className="flex items-center text-white hover:text-gray-400"
                 >
                   <i className="fas fa-pen"></i>
@@ -62,7 +62,7 @@ export default function Navbar() {
               </li>
               <li className="mr-6">
                 <a
-                  href="about.html"
+                  href="/about"
                   className="flex items-center text-white hover:text-gray-400"
                 >
                   <i className="fas fa-users"></i>
@@ -71,7 +71,7 @@ export default function Navbar() {
               </li>
               <li className="mr-6">
                 <a
-                  href="contact.html"
+                  href="/contact"
                   className="flex items-center text-white font-bold hover:text-gray-400"
                 >
                   <i className="far fa-comments"></i>
