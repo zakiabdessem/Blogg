@@ -8,6 +8,8 @@ export default function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -16,7 +18,7 @@ export default function Register() {
       // the cookie is Saved Automaticly by using /withCredentials: true/
       const response = await axios.post(
         "http://localhost:3000/auth/sign-up",
-        { email, password },
+        { email, password, name },
         {
           withCredentials: true,
         }
@@ -31,14 +33,25 @@ export default function Register() {
 
   return (
     <>
- <form onSubmit={handleSubmit} class="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <h3 className="ml-3">{error}</h3>
-        <div class="space-y-1">
-          <label htmlFor="email" class="font-medium">
+        <div className="space-y-1">
+          <label htmlFor="Name">Name</label>
+          <input
+            className="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            type="text"
+            id="name"
+            placeholder="Enter your name.."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="email" className="font-medium">
             Email
           </label>
           <input
-            class="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
             type="email"
             id="email"
             name="email"
@@ -47,12 +60,12 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div class="space-y-1">
-          <label htmlFor="password" class="font-medium">
+        <div className="space-y-1">
+          <label htmlFor="password" className="font-medium">
             Password
           </label>
           <input
-            class="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
             type="password"
             id="password"
             name="password"
@@ -63,7 +76,7 @@ export default function Register() {
         </div>
         <button
           type="submit"
-          class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-3 py-2 leading-5 text-sm rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700"
+          className="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-3 py-2 leading-5 text-sm rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700"
         >
           Register
         </button>

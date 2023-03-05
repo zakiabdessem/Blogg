@@ -12,18 +12,24 @@ const createJwtToken = (payload) => {
 };
 
 module.exports.post_signUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
-  /* validate email and password */
-  const { error: emailError } = validation.emailValidation({ email: email });
+  /* validate email, password and name */
+  //name
+  const { error: nameError } = validation.nameValidation({
+    name,
+  });
+  if (nameError) return res.status(400).json({ error: nameError.message });
+
+  //email
+  const { error: emailError } = validation.emailValidation({ email });
   if (emailError) return res.status(400).json({ error: emailError.message });
 
-  const { error: passwordError } = validation.passwordValidation({
-    password: password,
-  });
+  //password
+  const { error: passwordError } = validation.passwordValidation({ password });
   if (passwordError)
     return res.status(400).json({ error: passwordError.message });
-
+  
   /* Check if user already exists */
   const duplicate = await user.findOne({ email: email });
   if (duplicate)
@@ -38,6 +44,7 @@ module.exports.post_signUp = async (req, res) => {
     const User = await user.create({
       email: email,
       password: hashedPassword,
+      name
     });
 
     const payload = {
