@@ -2,27 +2,42 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
+function Search() {
+  return (
+    <div className="fixed top-0 right-0 w-full md:w-auto md:mt-0 m-2">
+      <form className="flex items-center mt-16">
+        <input
+          className="flex-grow bg-gray-200 border-transparent focus:outline-none focus:bg-white focus:border-gray-300 px-4 mr-2 mb-2 md:mb-0 rounded-lg text-gray-700"
+          type="text"
+          name="query"
+          placeholder="Search..."
+          aria-label="Search"
+        />
+        <button
+          className="bg-indigo-500 hover:bg-indigo-600 px-6 py-2 rounded-lg text-white"
+          type="submit"
+        >
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+      </form>
+    </div>
+  );
+}
+
 export default function Navbar() {
+  // where to show search and where to not
+  const { pathname } = window.location;
+  const shouldShowSearch = ![
+    "/register",
+    "/login",
+    "/contact",
+    "/about",
+  ].includes(pathname);
+  //
+
   return (
     <>
-      {/*<div className="fixed top-0 right-0 w-full md:w-auto md:mt-0 m-2">
-        <form className="flex items-center mt-16">
-          <input
-            className="flex-grow bg-gray-200 border-transparent focus:outline-none focus:bg-white focus:border-gray-300 px-4 mr-2 mb-2 md:mb-0 rounded-lg text-gray-700"
-            type="text"
-            name="query"
-            placeholder="Search..."
-            aria-label="Search"
-          />
-          <button
-            className="bg-indigo-500 hover:bg-indigo-600 px-6 py-2 rounded-lg text-white"
-            type="submit"
-          >
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-        </form>
-      </div>*/}
-
+      {shouldShowSearch && <Search />}
       <header className="fixed top-0 w-full bg-gray-900 text-white py-4">
         <div className="container mx-auto flex justify-between px-4">
           <button
