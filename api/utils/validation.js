@@ -8,7 +8,7 @@ const nameSchema = Joi.object({
     .required()
     .error(
       new Error(
-        "Name must be between 2 and 50 characters long and contain only letters and spaces"
+        "Name must be between 4 and 70 characters long and contain only letters and spaces"
       )
     ),
 });

@@ -6,15 +6,22 @@ const cookies = new Cookies();
 
 export default function Register() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState();
 
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (password !== confirmPassword) {
+        setPassword("");
+        setConfirmPassword("");
+        setError("Passwords do not match.");
+        return;
+      }
       // the cookie is Saved Automaticly by using /withCredentials: true/
       const response = await axios.post(
         "http://localhost:3000/auth/sign-up",
@@ -33,7 +40,7 @@ export default function Register() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
         <h3 className="ml-3">{error}</h3>
         <div className="space-y-1">
           <label htmlFor="Name">Name</label>
@@ -72,6 +79,17 @@ export default function Register() {
             placeholder="Enter your password.."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="space-y-1">
+          <input
+            className="block border border-gray-200 rounded px-3 py-2 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            type="Password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm your Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
         <button
