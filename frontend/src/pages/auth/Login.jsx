@@ -31,36 +31,7 @@ export default function Login() {
 
   return (
     <>
-      {/*
-     <div className="">
-        <form onSubmit={handleSubmit}>
-          <h3 className="ml-3">{error}</h3>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
-    */}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
         <h3 className="ml-3">{error}</h3>
         <div className="space-y-1">
           <label htmlFor="email" className="font-medium">
@@ -90,12 +61,19 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <div className="flex flex-col"></div>
         <button
           type="submit"
           className="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-3 py-2 leading-5 text-sm rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700"
         >
           Login
         </button>
+        <a
+          class="text-sm text-blue-500 hover:text-blue-700 py-1 px-5 mb-5"
+          href="/password/request"
+        >
+          Forgot password?
+        </a>
       </form>
     </>
   );

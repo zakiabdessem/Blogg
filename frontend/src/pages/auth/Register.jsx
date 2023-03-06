@@ -20,11 +20,11 @@ export default function Register() {
         "http://localhost:3000/auth/sign-up",
         { email, password, name },
         {
-          withCredentials: true,
+          withCredentials: false,
         }
       );
 
-      if (response.status === 200) navigate("/");
+      if (response.status === 200) navigate("/login");
     } catch (e) {
       if (e.response) setError(e.response.data.error);
       else console.log(e);

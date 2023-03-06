@@ -6,7 +6,7 @@ export default function RegisterPage() {
     <Layout>
       <div
         id="page-container"
-        className="flex flex-col mx-auto w-full min-h-screen bg-gray-100"
+        className="flex flex-col mx-auto w-full bg-gray-100"
       >
         <h3 className="flex items-center my-8">
           <span
@@ -19,7 +19,9 @@ export default function RegisterPage() {
             className="grow bg-gray-500 rounded h-0.5 w-80"
           ></span>
         </h3>
+        <div className="px-10">
         <Login />
+        </div>
       </div>
     </Layout>
   );

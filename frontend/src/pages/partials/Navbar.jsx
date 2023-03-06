@@ -24,6 +24,19 @@ function Search() {
   );
 }
 
+function Login_register() {
+  return (
+    <div className="flex items-center ml-auto">
+            <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
+              <a href="/register">Register</a>
+            </div>
+            <div className="mr-4 rounded-lg font-medium hover:text-gray-400">
+              <a href="/login">Login</a>
+            </div>
+          </div>
+  )
+}
+
 export default function Navbar() {
   // where to show search and where to not
   const { pathname } = window.location;
@@ -95,15 +108,7 @@ export default function Navbar() {
               </li>
             </ul>
           </nav>
-          <div></div>
-          <div className="flex items-center ml-auto">
-            <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
-              <a href="/register">Register</a>
-            </div>
-            <div className="mr-4 rounded-lg font-medium hover:text-gray-400">
-              <a href="/login">Login</a>
-            </div>
-          </div>
+          <Login_register/>
         </div>
       </header>
     </>
