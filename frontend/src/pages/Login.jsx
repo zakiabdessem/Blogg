@@ -25,10 +25,10 @@ export default function LoginPage() {
  
       </div>
       <div className="flex items-center justify-center m-7">
-        <p class="text-sm text-secondary">
+        <p className="text-sm text-secondary">
           Don't have an account?{" "}
           <a
-            class="text-blue-600 underline hover:text-blue-700"
+            className="text-blue-600 underline hover:text-blue-700"
             href="/register"
           >
             Sign Up

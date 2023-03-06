@@ -20,9 +20,10 @@ export default function Login() {
         { email, password },
         { withCredentials: true }
       );
+
       // the cookie is Saved Automaticly by using /withCredentials: true/
       // redirect to home page
-      navigate("/");
+      navigate("/posts");
     } catch (e) {
       if (e.response) setError(e.response.data.error);
       else console.log(e);
@@ -69,7 +70,7 @@ export default function Login() {
           Login
         </button>
         <a
-          class="text-sm text-blue-500 hover:text-blue-700 py-1 px-5 mb-5"
+          className="text-sm text-blue-500 hover:text-blue-700 py-1 px-5 mb-5"
           href="/password/request"
         >
           Forgot password?

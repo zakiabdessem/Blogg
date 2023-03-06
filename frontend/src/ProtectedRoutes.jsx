@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-
+import { getFromLs, setToLs } from "./utils/localstorage";
 const cookies = new Cookies();
 
 const ProtectedRoutes = () => {
@@ -17,7 +17,7 @@ const ProtectedRoutes = () => {
       />
     );
   }
-  
+
   useEffect(() => {
     const verifyToken = async () => {
       try {
@@ -27,12 +27,14 @@ const ProtectedRoutes = () => {
           },
           withCredentials: true,
         });
-        console.log("response:", response);
 
         if (response.status === 200) {
+          const { email, name } = response.data;
+          setToLs("user_data", { email, name });
+          const userData = getFromLs("user_data");
+         console.log(userData.name)
           setIsAuthenticated(true);
         }
-
       } catch (e) {
         return;
       }

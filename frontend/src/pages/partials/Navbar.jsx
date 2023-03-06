@@ -1,6 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "universal-cookie";
+import { getFromLs } from "../../utils/localstorage";
+import { useNavigate } from "react-router-dom";
+
+const cookies = new Cookies();
 
 function Search() {
   return (
@@ -27,17 +32,41 @@ function Search() {
 function Login_register() {
   return (
     <div className="flex items-center ml-auto">
-            <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
-              <a href="/register">Register</a>
-            </div>
-            <div className="mr-4 rounded-lg font-medium hover:text-gray-400">
-              <a href="/login">Login</a>
-            </div>
-          </div>
-  )
+      <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
+        <a href="/register">Register</a>
+      </div>
+      <div className="mr-4 rounded-lg font-medium hover:text-gray-400">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+  );
+}
+
+function Logout_username() {
+  const navigate = useNavigate()
+  const userData = getFromLs("user_data");
+  return (
+    <div className="flex items-center ml-auto">
+      <div className="mr-3">{userData.name}</div>
+      <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
+        <button
+          onClick={() => {
+            // Remove the jwt cookie
+            cookies.remove("jwt");
+            // Navigate to the login page
+            navigate("/login");
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default function Navbar() {
+  //check if user logged in or not
+  const user = cookies.get("jwt");
   // where to show search and where to not
   const { pathname } = window.location;
   const shouldShowSearch = ![
@@ -108,7 +137,7 @@ export default function Navbar() {
               </li>
             </ul>
           </nav>
-          <Login_register/>
+          {user ? <Logout_username /> : <Login_register />}
         </div>
       </header>
     </>

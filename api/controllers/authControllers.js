@@ -29,7 +29,7 @@ module.exports.post_signUp = async (req, res) => {
   const { error: passwordError } = validation.passwordValidation({ password });
   if (passwordError)
     return res.status(400).json({ error: passwordError.message });
-  
+
   /* Check if user already exists */
   const duplicate = await user.findOne({ email: email });
   if (duplicate)
@@ -44,7 +44,7 @@ module.exports.post_signUp = async (req, res) => {
     const User = await user.create({
       email: email,
       password: hashedPassword,
-      name
+      name,
     });
 
     const payload = {
@@ -84,6 +84,7 @@ module.exports.post_login = async (req, res) => {
   const payload = {
     id: User._id,
     email: User.email,
+    name: User.name,
   };
   try {
     const token = createJwtToken(payload);
