@@ -36,6 +36,8 @@ app.use(bodyParser.json())
 const authRoute = require('./routes/auth')
 app.use('/auth', authRoute)
 
+const profileRoute = require('./routes/profile')
+app.use('/profile',profileRoute)
 
 
 app.listen('3000', () => {

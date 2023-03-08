@@ -31,8 +31,6 @@ const ProtectedRoutes = () => {
         if (response.status === 200) {
           const { email, name } = response.data;
           setToLs("user_data", { email, name });
-          const userData = getFromLs("user_data");
-         console.log(userData.name)
           setIsAuthenticated(true);
         }
       } catch (e) {

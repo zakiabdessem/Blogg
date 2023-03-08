@@ -18,10 +18,9 @@ export default function Login() {
       const response = await axios.post(
         "http://localhost:3000/auth/login",
         { email, password },
-        { withCredentials: true }
-      );
+        { withCredentials: true } // the cookie is Saved Automaticly by using /withCredentials: true/
 
-      // the cookie is Saved Automaticly by using /withCredentials: true/
+      );
       // redirect to home page
       navigate("/posts");
     } catch (e) {
@@ -62,7 +61,6 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex flex-col"></div>
         <button
           type="submit"
           className="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-3 py-2 leading-5 text-sm rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700"

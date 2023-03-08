@@ -103,6 +103,7 @@ module.exports.verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
+    req.decodedToken = decoded; 
     res.status(200).json(decoded);
     next();
   } catch (err) {

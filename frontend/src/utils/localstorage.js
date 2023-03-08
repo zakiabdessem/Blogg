@@ -7,6 +7,14 @@ const setToLs = (key, value) => {
   }
 };
 
+const removeFromLs = (key) => {
+  try {
+    localStorage.removeItem(key);
+  } catch (e) {
+    return e;
+  }
+};
+
 const getFromLs = (key) => {
   try {
     const value = localStorage.getItem(key);
@@ -20,4 +28,4 @@ const getFromLs = (key) => {
   }
 };
 
-module.exports = { setToLs, getFromLs };
+module.exports = { setToLs, getFromLs, removeFromLs };

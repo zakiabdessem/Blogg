@@ -8,6 +8,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Posts from "./pages/Posts";
+import Settings from './pages/profile/Settings'
 
 import "./index.css";
 import Footer from "./pages/partials/Footer";
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/posts" element={<Posts />} />
+          <Route path="/profile/settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
-import { getFromLs } from "../../utils/localstorage";
+import { getFromLs, removeFromLs } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
 
 const cookies = new Cookies();
@@ -43,18 +43,24 @@ function Login_register() {
 }
 
 function Logout_username() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const userData = getFromLs("user_data");
   return (
     <div className="flex items-center ml-auto">
-      <div className="mr-3">{userData.name}</div>
+      <div className="mr-3"><a href='/profile/settings'>{userData.name}</a></div>
       <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
         <button
           onClick={() => {
-            // Remove the jwt cookie
-            cookies.remove("jwt");
-            // Navigate to the login page
-            navigate("/login");
+            try {
+              // Remove the jwt cookie
+              cookies.remove("jwt");
+              //remove user data from local storage
+              removeFromLs("user_data");
+              // Navigate to the login page
+              navigate("/login");
+            } catch (e) {
+              console.log(e)
+            }
           }}
         >
           Logout
