@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Resizer from "react-image-file-resizer";
 import Cookies from "universal-cookie";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 import axios from "axios";
 
 const cookies = new Cookies();
@@ -37,21 +37,24 @@ const resizeFileBase64 = async (file) =>
   });
 
 export default function Profile() {
-  const [image, setImage] = useState();
   const [error, setError] = useState();
+  const [renderImage, setRenderImage] = useState();
+  const [imageBlob, setImageBlob] = useState();
   const [imageBase64, setImageBase64] = useState();
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+
     if (file && file.type.substring(0, 5) === "image") {
-      const imageBlob = await resizeFileBlob(file);
-      const imageBase = await resizeFileBase64(file);
-      setImageBase64(imageBase);
+      const _imageBlob = await resizeFileBlob(file);
+      setImageBlob(_imageBlob);
+      const _imageBase64 = await resizeFileBase64(file);
+      setImageBase64(_imageBase64);
       const reader = new FileReader();
       reader.onload = () => {
-        setImage(reader.result);
+        setRenderImage(reader.result);
       };
-      reader.readAsDataURL(imageBlob);
+      reader.readAsDataURL(_imageBlob);
     } else {
       setError("Invalid image type");
     }
@@ -59,24 +62,28 @@ export default function Profile() {
 
   const handleImageSave = async (e) => {
     e.preventDefault();
-    // Convert the base64-encoded image to a buffer
-    const buffer = Buffer.from(imageBase64.split(",")[1], "base64");
-    console.log("buffer is : ", buffer);
+    // Sending the image Base64 to API
+    const data = {
+      imageBase64,
+    };
     try {
       // Send the buffer to your API
       const response = await axios.post(
         "http://localhost:3000/profile/picture/save",
-        buffer,
+        data,
         {
           headers: {
             Authorization: `Bearer ${cookies.get("jwt")}`,
-            "Content-Type": "application/octet-stream",
+            "Content-Type": "application/json",
           },
           withCredentials: true,
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity,
         }
       );
-console.log(response)
-      // TODO: handle success
+      if (response.status === 200) console.log("status 200", response);
+      // TODO: save base64 to localStorage
+      
     } catch (error) {
       console.error(error);
       // TODO: handle error
@@ -89,11 +96,9 @@ console.log(response)
       <form onSubmit={handleImageSave}>
         <label htmlFor="image">Upload a profile picture</label>
         <input type="file" accept="/image/*" onChange={handleImageUpload} />
-        <button type="submit" >
-          Save
-        </button>
+        <button type="submit">Save</button>
       </form>
-      {image && <img src={image} alt="Profile picture" />}
+      {renderImage && <img src={renderImage} alt="Profile picture" />}
     </>
   );
 }

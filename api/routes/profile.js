@@ -1,14 +1,18 @@
 const express = require("express");
+const { Buffer } = require("buffer");
 const authController = require("../controllers/authControllers");
 
 const router = express.Router();
 
-router.post("/picture/save",authController.verifyToken, (req, res) => {
-  const buffer = req.body;
-  const decodedToken = req.decodedToken;
-  console.log("decoded token is :", decodedToken);
+router.post("/picture/save", authController.verifyToken, (req, res) => {
+  const { email, id } = req.decodedToken;
+  const { imageBase64 } = req.body;
+
+
+  const buffer = Buffer.from(imageBase64.split(",")[1], "base64");
+
   console.log("buffer is :", buffer);
-  res.status(200);
+
 });
 
 module.exports = router;

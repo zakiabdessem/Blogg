@@ -31,6 +31,7 @@ app.use(
 app.use(cookieParser())
 //body-parser
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 const authRoute = require('./routes/auth')
