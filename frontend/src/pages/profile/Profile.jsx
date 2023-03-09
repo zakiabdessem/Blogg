@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import Cookies from "universal-cookie";
-import { Buffer } from "buffer";
 import axios from "axios";
+import { setToLs, getFromLs } from "../../utils/localstorage";
 
 const cookies = new Cookies();
 const resizeFileBlob = async (file) =>
@@ -35,21 +35,23 @@ const resizeFileBase64 = async (file) =>
       "base64"
     );
   });
+/*useEffect(() => {
+if(!getFromLs("profile_picture")){
+  //TODO: get the image from DB by user id
+}
+
+}, []);*/
 
 export default function Profile() {
   const [error, setError] = useState();
   const [renderImage, setRenderImage] = useState();
   const [imageBlob, setImageBlob] = useState();
-  const [imageBase64, setImageBase64] = useState();
-
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
 
     if (file && file.type.substring(0, 5) === "image") {
       const _imageBlob = await resizeFileBlob(file);
       setImageBlob(_imageBlob);
-      const _imageBase64 = await resizeFileBase64(file);
-      setImageBase64(_imageBase64);
       const reader = new FileReader();
       reader.onload = () => {
         setRenderImage(reader.result);
@@ -64,10 +66,11 @@ export default function Profile() {
     e.preventDefault();
     // Sending the image Base64 to API
     const data = {
-      imageBase64,
+      imageBlob,
     };
+
     try {
-      // Send the buffer to your API
+      // Send the image url to your API
       const response = await axios.post(
         "http://localhost:3000/profile/picture/save",
         data,
@@ -81,11 +84,12 @@ export default function Profile() {
           maxBodyLength: Infinity,
         }
       );
+      
       if (response.status === 200) console.log("status 200", response);
       // TODO: save base64 to localStorage
-      
+      setToLs("profile_picture", renderImage);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       // TODO: handle error
     }
   };

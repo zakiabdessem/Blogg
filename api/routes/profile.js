@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.post("/picture/save", authController.verifyToken, (req, res) => {
   const { email, id } = req.decodedToken;
-  const { imageBase64 } = req.body;
+  const { imageBlob } = req.body;
 
 
-  const buffer = Buffer.from(imageBase64.split(",")[1], "base64");
+  const buffer = Buffer.from(imageBlob.split(",")[1], "blob");
 
   console.log("buffer is :", buffer);
 
