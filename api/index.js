@@ -18,7 +18,14 @@ try {
 
 // allow cross-origin requests 
 app.use(
-    cors()
+    cors({
+    
+      credentials: true,
+      origin: [
+        "https://24c1-197-207-209-248.eu.ngrok.io", 
+      ], 
+      methods: ["GET", "POST"],
+    })
   );
 //
 app.use(cookieParser())
