@@ -22,7 +22,7 @@ app.use(
     
       credentials: true,
       origin: [
-        "https://24c1-197-207-209-248.eu.ngrok.io", 
+        "http://127.0.0.1:4040", 
       ], 
       methods: ["GET", "POST"],
     })
