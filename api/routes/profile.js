@@ -1,14 +1,14 @@
-const express = require("express");
+const mongoose = require('mongoose')
+const router = require("express").Router();
 const authController = require("../controllers/authControllers");
+const user = require('../models/user')
 
-const router = express.Router();
 
-router.post("/picture/save", authController.verifyToken, (req, res) => {
+router.post("/picture/save", authController.verifyToken, async (req, res) => {
   const { email, id } = req.decodedToken;
   const { imageURL } = req.body;
 
-  console.log(`email: ${email}, imageURL${imageURL}`)
-
+const User = await user.findOneAndUpdate({email, _id: id},{profile_pic: imageURL })
 
 });
 

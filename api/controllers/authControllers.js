@@ -96,16 +96,18 @@ module.exports.post_login = async (req, res) => {
     console.log(e);
   }
 };
-module.exports.verifyToken = (req, res, next) => {
+module.exports.verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
-    console.log(decoded)
-    req.decodedToken = decoded; 
-    res.status(200).json(decoded);
+    req.decodedToken = decoded;
+    const User = await user.findOne({ email: decoded.email }).exec();
+    res
+      .status(200)
+      .json({ userInformation: decoded, picture: User.profile_pic });
     next();
   } catch (err) {
     return res.status(401).json({ message: "Unauthorized" });

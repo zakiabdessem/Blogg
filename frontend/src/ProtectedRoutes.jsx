@@ -29,8 +29,11 @@ const ProtectedRoutes = () => {
         });
 
         if (response.status === 200) {
-          const { email, name } = response.data;
+          const { email, name } = response.data.userInformation;
+          const profile_pic = response.data.picture;
           setToLs("user_data", { email, name });
+          setToLs("profile_pic", profile_pic);
+
           setIsAuthenticated(true);
         }
       } catch (e) {

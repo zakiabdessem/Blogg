@@ -8,10 +8,10 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Posts from "./pages/Posts";
-import Settings from './pages/profile/Settings'
 
+import Account_Information from "./pages/Settings/Account_Information";
+import ProfilePicChange from "./pages/Settings/ProfilePicChange";
 import "./index.css";
-import Footer from "./pages/partials/Footer";
 
 export default function App() {
   return (
@@ -22,7 +22,11 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/posts" element={<Posts />} />
-          <Route path="/profile/settings" element={<Settings />} />
+          <Route path="/profile/settings" element={<Account_Information />} />
+          <Route path="/profile/settings">
+            <Route path="account" element={<Account_Information />} />
+            <Route path="picture" element={<ProfilePicChange />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
@@ -33,6 +37,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <CookiesProvider>
     <App />
-    <Footer />
   </CookiesProvider>
 );

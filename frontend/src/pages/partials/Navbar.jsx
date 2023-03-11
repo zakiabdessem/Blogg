@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
@@ -6,28 +6,6 @@ import { getFromLs, removeFromLs } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
 
 const cookies = new Cookies();
-
-function Search() {
-  return (
-    <div className="fixed top-0 right-0 w-full md:w-auto md:mt-0 m-2">
-      <form className="flex items-center mt-16">
-        <input
-          className="flex-grow bg-gray-200 border-transparent focus:outline-none focus:bg-white focus:border-gray-300 px-4 mr-2 mb-2 md:mb-0 rounded-lg text-gray-700"
-          type="text"
-          name="query"
-          placeholder="Search..."
-          aria-label="Search"
-        />
-        <button
-          className="bg-indigo-500 hover:bg-indigo-600 px-6 py-2 rounded-lg text-white"
-          type="submit"
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
-      </form>
-    </div>
-  );
-}
 
 function Login_register() {
   return (
@@ -45,9 +23,28 @@ function Login_register() {
 function Logout_username() {
   const navigate = useNavigate();
   const userData = getFromLs("user_data");
+  const [picture, setPicture] = useState();
+
+  useEffect(() => {
+    setPicture(getFromLs("profile_pic"));
+  }, []);
+
   return (
     <div className="flex items-center ml-auto">
-      <div className="mr-3"><a href='/profile/settings'>{userData.name}</a></div>
+      {userData && (
+        <div className="w-10 h-10 mr-3">
+          <img
+            src={picture}
+            alt="Profile picture"
+            className="rounded-full w-full h-full object-cover"
+          />
+        </div>
+      )}
+      {userData && (
+        <div className="mr-3">
+          <a href="/profile/settings">{userData.name}</a>
+        </div>
+      )}
       <div className="mr-4 rounded-lg text-black bg-white font-semibold px-3 hover:bg-gray-400">
         <button
           onClick={() => {
@@ -56,10 +53,11 @@ function Logout_username() {
               cookies.remove("jwt");
               //remove user data from local storage
               removeFromLs("user_data");
+              removeFromLs("profile_pic");
               // Navigate to the login page
               navigate("/login");
             } catch (e) {
-              console.log(e)
+              console.log(e);
             }
           }}
         >
@@ -85,7 +83,6 @@ export default function Navbar() {
 
   return (
     <>
-      {shouldShowSearch && <Search />}
       <header className="fixed top-0 w-full bg-gray-900 text-white py-4">
         <div className="container mx-auto flex justify-between px-4">
           <button
